@@ -5,7 +5,7 @@ import java.util.*;
 
 public class CSVReader {
 
-    public static List<String> generateListFromCSV(String filePath) {
+    public static List<String> getListFromCSV(String filePath) {
         try (var reader = new BufferedReader(new FileReader(filePath))) {
             var lineList = new ArrayList<String>();
             reader.readLine(); // skip header row
@@ -26,22 +26,24 @@ public class CSVReader {
         return null;
     }
 
-    public static Map<String, Integer> generateMapFromCSV(String filePath) throws IOException {
-        var csvList = generateListFromCSV(filePath);
-        var statePopulation = new HashMap<String, Integer>();
+    public static Map<String, Integer> getMapFromCSV(String filePath) throws IOException {
+        var csvList = getListFromCSV(filePath);
+        var csvMap = new HashMap<String, Integer>();
         for (int i = 0; i < csvList.size(); i++) {
             var keyValue = csvList.get(i).split(",");
             try {
-                statePopulation.put(keyValue[0].strip(), Integer.parseInt(keyValue[1].strip()));
+                var stateName = keyValue[0].strip();
+                var statePopulation = Integer.parseInt(keyValue[1].strip());
+                csvMap.put(stateName, statePopulation);
             }
             catch (NumberFormatException e) {
                 System.out.printf("Line %d - Bad Format - %s\n", i+2, csvList.get(i));
             }
         }
-        if (statePopulation.isEmpty()) {
+        if (csvMap.isEmpty()) {
             throw new IOException("\nFormat Error - each line must be of format - ^\\w+,\\s*\\d+$");
         }
-        return statePopulation;
+        return csvMap;
     }
 
 }
