@@ -26,7 +26,7 @@ public class CSVReader {
         return null;
     }
 
-    public static Map<String, Integer> generateMapFromCSV(String filePath) {
+    public static Map<String, Integer> generateMapFromCSV(String filePath) throws IOException {
         var csvList = generateListFromCSV(filePath);
         var statePopulation = new HashMap<String, Integer>();
         for (int i = 0; i < csvList.size(); i++) {
@@ -37,6 +37,9 @@ public class CSVReader {
             catch (NumberFormatException e) {
                 System.out.printf("Line %d - Bad Format - %s\n", i+2, csvList.get(i));
             }
+        }
+        if (statePopulation.isEmpty()) {
+            throw new IOException("\nFormat Error - each line must be of format - ^\\w+,\\s*\\d+$");
         }
         return statePopulation;
     }
