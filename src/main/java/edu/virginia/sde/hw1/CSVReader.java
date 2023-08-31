@@ -5,15 +5,15 @@ import java.util.*;
 
 public class CSVReader {
 
-    public static List<String> readCSV(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            List<String> allLines = new ArrayList<>();
-            reader.readLine(); // skip first line
+    public static List<String> generateListFromCSV(String filePath) {
+        try (var reader = new BufferedReader(new FileReader(filePath))) {
+            var lineList = new ArrayList<String>();
+            reader.readLine(); // skip header row
             String line;
-            while((line = reader.readLine()) != null) {
-                allLines.add(line);
+            while ((line = reader.readLine()) != null) {
+                lineList.add(line);
             }
-            return allLines;
+            return lineList;
         }
         catch (FileNotFoundException e) {
             System.out.println("Error - .csv file does not exist or was entered incorrectly");
@@ -26,16 +26,19 @@ public class CSVReader {
         return null;
     }
 
-    public static void main(String[] args) {
-        try {
-            String filePath = args[0];
-            String[] lines = readCSV(filePath).toArray(new String[0]);
-            System.out.println(Arrays.toString(lines));
+    public static Map<String, Integer> generateMapFromCSV(String filePath) {
+        var csvList = generateListFromCSV(filePath);
+        var statePopulation = new HashMap<String, Integer>();
+        for (int i = 0; i < csvList.size(); i++) {
+            var keyValue = csvList.get(i).split(",");
+            try {
+                statePopulation.put(keyValue[0].strip(), Integer.parseInt(keyValue[1].strip()));
+            }
+            catch (NumberFormatException e) {
+                System.out.printf("Line %d - Bad Format - %s\n", i+2, csvList.get(i));
+            }
         }
-        catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Error - enter f");
-            System.exit(1);
-        }
+        return statePopulation;
     }
 
 }
