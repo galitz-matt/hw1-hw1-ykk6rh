@@ -51,8 +51,4 @@ public class CSVReader {
         return csvMap;
     }
 
-    public static void main(String[] args) throws IOException {
-        getMapFromCSV(args[0]);
-    }
-
 }
