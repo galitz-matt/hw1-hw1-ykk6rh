@@ -16,11 +16,11 @@ public class CSVReader {
             return lineList;
         }
         catch (FileNotFoundException e) {
-            System.out.println("Error - .csv file does not exist or was entered incorrectly");
+            System.out.printf("Error - file \"%s\" not found\n", filePath);
             System.exit(1);
         }
         catch (IOException e) {
-            System.out.println("Error - make sure correct file path was entered");
+            System.out.println("Error - verify input correctness");
             System.exit(1);
         }
         return null;
@@ -34,16 +34,25 @@ public class CSVReader {
             try {
                 var stateName = keyValue[0].strip();
                 var statePopulation = Integer.parseInt(keyValue[1].strip());
-                csvMap.put(stateName, statePopulation);
+                if (statePopulation >= 0) {
+                    csvMap.put(stateName, statePopulation);
+                }
+                else {
+                    System.out.printf("Line %d ignored - population must be positive integer values - \"%s\" \n", i+2, csvList.get(i));
+                }
             }
             catch (NumberFormatException e) {
-                System.out.printf("Line %d - Bad Format - %s\n", i+2, csvList.get(i));
+                System.out.printf("Line %d ignored - use correct format - \"%s\"\n", i+2, csvList.get(i));
             }
         }
         if (csvMap.isEmpty()) {
-            throw new IOException("\nFormat Error - each line must be of format - ^\\w+,\\s*\\d+$");
+            throw new IOException("\nError - .csv file is empty or no lines are properly formatted");
         }
         return csvMap;
+    }
+
+    public static void main(String[] args) throws IOException {
+        getMapFromCSV(args[0]);
     }
 
 }
