@@ -26,4 +26,8 @@ public class Main {
         return totalPopulation;
     }
 
+    private static int getDivisor(int totalPopulation, int numSeats) {
+        return totalPopulation / numSeats;
+    }
+
 }
