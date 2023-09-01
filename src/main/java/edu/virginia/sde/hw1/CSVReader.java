@@ -49,7 +49,7 @@ public class CSVReader {
                     System.out.printf("Line %d ignored - population must be positive integer value - \"%s\" \n", i + 2, csvList.get(i));
                 }
             } catch (NumberFormatException e) {
-                System.out.printf("Line %d ignored - incorrect correct format - \"%s\"\n", i + 2, csvList.get(i));
+                System.out.printf("Line %d ignored - incorrect format - \"%s\"\n", i + 2, csvList.get(i));
             }
         }
         if (csvMap.isEmpty()) {
