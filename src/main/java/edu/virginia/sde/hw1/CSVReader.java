@@ -14,16 +14,25 @@ public class CSVReader {
                 lineList.add(line);
             }
             return lineList;
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.printf("Error - file \"%s\" not found\n", filePath);
             System.exit(1);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error - verify input correctness");
             System.exit(1);
         }
         return null;
+    }
+
+    public static List<String> getStatesInAlphabeticalOrder(List<String> csvList) {
+        List<String> orderedStates = new ArrayList<>();
+        for (String line : csvList) {
+            var parsedLine = line.split(",");
+            var stateName = parsedLine[0].strip();
+            orderedStates.add(stateName);
+        }
+        orderedStates.sort(CharSequence::compare);
+        return orderedStates;
     }
 
     public static Map<String, Integer> getMapFromCSV(String filePath) throws IOException {
@@ -36,13 +45,11 @@ public class CSVReader {
                 var statePopulation = Integer.parseInt(keyValue[1].strip());
                 if (statePopulation >= 0) {
                     csvMap.put(stateName, statePopulation);
+                } else {
+                    System.out.printf("Line %d ignored - population must be positive integer value - \"%s\" \n", i + 2, csvList.get(i));
                 }
-                else {
-                    System.out.printf("Line %d ignored - population must be positive integer values - \"%s\" \n", i+2, csvList.get(i));
-                }
-            }
-            catch (NumberFormatException e) {
-                System.out.printf("Line %d ignored - use correct format - \"%s\"\n", i+2, csvList.get(i));
+            } catch (NumberFormatException e) {
+                System.out.printf("Line %d ignored - use correct format - \"%s\"\n", i + 2, csvList.get(i));
             }
         }
         if (csvMap.isEmpty()) {
