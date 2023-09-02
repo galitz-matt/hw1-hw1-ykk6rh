@@ -11,8 +11,7 @@ public class Main {
             var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
             var divisor = getDivisor(csvMap, totalSeats);
             var apportionmentMap = getApportionmentMap(csvMap, divisor);
-            jeffersonAlgorithm(apportionmentMap, totalSeats, divisor);
-            System.out.println(getApportionedSeats(apportionmentMap));
+            jeffersonAlgorithm(apportionmentMap, csvMap, totalSeats, divisor);
             for (String stateName : CSVReader.getStatesInAlphabeticalOrder(csvList)) {
                 var numStateSeats = apportionmentMap.get(stateName);
                 System.out.printf("%s - %d\n", stateName, numStateSeats);
@@ -47,25 +46,25 @@ public class Main {
         return apportionmentMap;
     }
 
-    private static void updateApportionmentMap(Map<String, Integer> apportionmentMap, int divisor) {
-        apportionmentMap.replaceAll((n, v) -> Math.floorDiv(apportionmentMap.get(n), divisor));
+    private static void updateApportionmentMap(Map<String, Integer> apportionmentMap, Map<String, Integer> csvMap, int divisor) {
+        apportionmentMap.replaceAll((n, v) -> csvMap.get(n) / divisor);
     }
 
     private static int getApportionedSeats(Map<String, Integer> apportionmentMap) {
-        int totalSeats = 0;
+        int apportionedSeats = 0;
         for (String stateName : apportionmentMap.keySet()) {
-            totalSeats += apportionmentMap.get(stateName);
+            apportionedSeats += apportionmentMap.get(stateName);
         }
-        return totalSeats;
+        return apportionedSeats;
     }
 
-    private static void jeffersonAlgorithm(Map<String, Integer> apportionmentMap, int totalSeats, int divisor) {
+    private static void jeffersonAlgorithm(Map<String, Integer> apportionmentMap, Map<String, Integer> csvMap, int totalSeats, int divisor) {
         int apportionedSeats;
         var low = 0;
         var high = divisor;
         var mid = divisor / 2;
         while (true) {
-            updateApportionmentMap(apportionmentMap, mid);
+            updateApportionmentMap(apportionmentMap, csvMap, mid);
             apportionedSeats = getApportionedSeats(apportionmentMap);
             if (apportionedSeats < totalSeats) {
                 high = mid;
