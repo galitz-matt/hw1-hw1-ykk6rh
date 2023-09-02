@@ -8,15 +8,14 @@ public class Main {
         try {
             var csvMap = CSVReader.getMapFromCSV(args[0]);
             var csvList = CSVReader.getListFromCSV(args[0]);
-            int numSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
-            var divisor = getDivisor(csvMap, numSeats);
+            var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
+            var divisor = getDivisor(csvMap, totalSeats);
             var apportionmentMap = getApportionmentMap(csvMap, divisor);
-
-            /* Placeholder for Jefferson Algo */
-
+            jeffersonAlgorithm(apportionmentMap, totalSeats, divisor);
+            System.out.println(getApportionedSeats(apportionmentMap));
             for (String stateName : CSVReader.getStatesInAlphabeticalOrder(csvList)) {
                 var numStateSeats = apportionmentMap.get(stateName);
-                System.out.printf("%s = %d\n", stateName, numStateSeats);
+                System.out.printf("%s - %d\n", stateName, numStateSeats);
             }
         }
         catch (IOException e) {
@@ -50,6 +49,35 @@ public class Main {
 
     private static void updateApportionmentMap(Map<String, Integer> apportionmentMap, int divisor) {
         apportionmentMap.replaceAll((n, v) -> Math.floorDiv(apportionmentMap.get(n), divisor));
+    }
+
+    private static int getApportionedSeats(Map<String, Integer> apportionmentMap) {
+        int totalSeats = 0;
+        for (String stateName : apportionmentMap.keySet()) {
+            totalSeats += apportionmentMap.get(stateName);
+        }
+        return totalSeats;
+    }
+
+    private static void jeffersonAlgorithm(Map<String, Integer> apportionmentMap, int totalSeats, int divisor) {
+        int apportionedSeats;
+        var low = 0;
+        var high = divisor;
+        var mid = divisor / 2;
+        while (true) {
+            updateApportionmentMap(apportionmentMap, mid);
+            apportionedSeats = getApportionedSeats(apportionmentMap);
+            if (apportionedSeats < totalSeats) {
+                high = mid;
+            }
+            else if (apportionedSeats > totalSeats) {
+                low = mid;
+            }
+            else {
+                break;
+            }
+            mid = (low + high) / 2;
+        }
     }
 
 }
