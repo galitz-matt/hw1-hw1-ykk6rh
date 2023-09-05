@@ -38,6 +38,7 @@ public class CSVReader {
             try {
                 var stateName = keyValue[0].strip();
                 var statePopulation = Integer.parseInt(keyValue[1].strip());
+                System.out.println(i);
                 if (statePopulation >= 0) {
                     csvMap.put(stateName, statePopulation);
                 } else {
@@ -45,6 +46,8 @@ public class CSVReader {
                 }
             } catch (NumberFormatException e) {
                 System.out.printf("Line %d ignored - incorrect format - \"%s\"\n", i + 2, csvList.get(i));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new ArrayIndexOutOfBoundsException("Ensure state name and population value are delimited by a comma \",\"");
             }
         }
         if (csvMap.isEmpty()) {
