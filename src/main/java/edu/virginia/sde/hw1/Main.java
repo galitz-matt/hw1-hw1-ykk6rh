@@ -9,19 +9,14 @@ public class Main {
         if (args.length < 1) {
             throw new ArrayIndexOutOfBoundsException("Error - no .csv file given");
         }
-        try {
-            var csvMap = CSVReader.getMapFromCSV(args[0]);
-            var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
-            var divisor = getDivisor(csvMap, totalSeats);
-            var apportionmentMap = getApportionmentMap(csvMap, divisor);
-            jeffersonAlgorithm(apportionmentMap, csvMap, totalSeats, divisor);
-            for (String stateName : CSVReader.getStatesInAlphabeticalOrder(csvMap)) {
-                var numStateSeats = apportionmentMap.get(stateName);
-                System.out.printf("%s - %d\n", stateName, numStateSeats);
-            }
-        }
-        catch (IOException e) {
-            throw new IOException("\nError - check input");
+        var csvMap = CSVReader.getMapFromCSV(args[0]);
+        var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
+        var divisor = getDivisor(csvMap, totalSeats);
+        var apportionmentMap = getApportionmentMap(csvMap, divisor);
+        jeffersonAlgorithm(apportionmentMap, csvMap, totalSeats, divisor);
+        for (String stateName : CSVReader.getStatesInAlphabeticalOrder(csvMap)) {
+            var numStateSeats = apportionmentMap.get(stateName);
+            System.out.printf("%s - %d\n", stateName, numStateSeats);
         }
     }
 

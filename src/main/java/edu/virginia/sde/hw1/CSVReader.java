@@ -38,16 +38,16 @@ public class CSVReader {
             try {
                 var stateName = keyValue[0].strip();
                 var statePopulation = Integer.parseInt(keyValue[1].strip());
-                System.out.println(i);
                 if (statePopulation >= 0) {
                     csvMap.put(stateName, statePopulation);
                 } else {
-                    System.out.printf("Line %d ignored - population must be positive integer value - \"%s\" \n", i + 2, csvList.get(i));
+                    System.out.printf("Line %d ignored - Population must be positive integer value - \"%s\" \n", i + 2, csvList.get(i));
                 }
             } catch (NumberFormatException e) {
-                System.out.printf("Line %d ignored - incorrect format - \"%s\"\n", i + 2, csvList.get(i));
+                System.out.printf("Line %d ignored - Population must be given numerically - \"%s\"\n", i + 2, csvList.get(i));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new IOException("Error - State name and population value are not delimited by \",\" - \"" + csvList.get(i) + "\"");
+                String errorMessage = String.format("Error - Line %d has bad format - \"%s\"", i + 2, csvList.get(i));
+                throw new IOException(errorMessage);
             }
         }
         if (csvMap.isEmpty()) {
