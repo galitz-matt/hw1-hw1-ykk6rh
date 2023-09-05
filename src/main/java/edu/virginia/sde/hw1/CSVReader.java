@@ -44,7 +44,7 @@ public class CSVReader {
                     System.out.printf("Line %d ignored - Population must be positive integer value - \"%s\" \n", i + 2, csvList.get(i));
                 }
             } catch (NumberFormatException e) {
-                System.out.printf("Line %d ignored - Population must be given numerically - \"%s\"\n", i + 2, csvList.get(i));
+                System.out.printf("Line %d ignored - Bad format - \"%s\"\n", i + 2, csvList.get(i));
             } catch (ArrayIndexOutOfBoundsException e) {
                 String errorMessage = String.format("Error - Line %d has bad format - \"%s\"", i + 2, csvList.get(i));
                 throw new IOException(errorMessage);
