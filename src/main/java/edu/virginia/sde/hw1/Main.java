@@ -57,7 +57,7 @@ public class Main {
         double low = 0;
         double high = divisor;
         double mid = (double) divisor / 2;
-        while (low < high) {
+        while (true) {
             updateApportionmentMap(apportionmentMap, csvMap, mid);
             apportionedSeats = getApportionedSeats(apportionmentMap);
             if (apportionedSeats < totalSeats) {
