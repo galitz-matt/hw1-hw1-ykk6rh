@@ -4,15 +4,15 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         try {
             var csvMap = CSVReader.getMapFromCSV(args[0]);
-            var csvList = CSVReader.getListFromCSV(args[0]);
             var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
             var divisor = getDivisor(csvMap, totalSeats);
             var apportionmentMap = getApportionmentMap(csvMap, divisor);
             jeffersonAlgorithm(apportionmentMap, csvMap, totalSeats, divisor);
-            for (String stateName : CSVReader.getStatesInAlphabeticalOrder(csvList)) {
+            for (String stateName : CSVReader.getStatesInAlphabeticalOrder(csvMap)) {
                 var numStateSeats = apportionmentMap.get(stateName);
                 System.out.printf("%s - %d\n", stateName, numStateSeats);
             }
@@ -21,8 +21,7 @@ public class Main {
             throw new IOException("\nError - check input");
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Error - no .csv file given");
-            System.out.println(1);
+            throw new ArrayIndexOutOfBoundsException("Error - no .csv file given");
         }
     }
 

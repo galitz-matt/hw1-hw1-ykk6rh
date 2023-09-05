@@ -24,13 +24,8 @@ public class CSVReader {
         return null;
     }
 
-    public static List<String> getStatesInAlphabeticalOrder(List<String> csvList) {
-        List<String> orderedStates = new ArrayList<>();
-        for (String line : csvList) {
-            var parsedLine = line.split(",");
-            var stateName = parsedLine[0].strip();
-            orderedStates.add(stateName);
-        }
+    public static List<String> getStatesInAlphabeticalOrder(Map<String, Integer> csvMap) {
+        List<String> orderedStates = new ArrayList<>(csvMap.keySet());
         orderedStates.sort(CharSequence::compare);
         return orderedStates;
     }
