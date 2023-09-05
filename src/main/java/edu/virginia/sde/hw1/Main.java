@@ -6,6 +6,9 @@ import java.io.*;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        if (args.length < 1) {
+            throw new ArrayIndexOutOfBoundsException("Error - no .csv file given");
+        }
         try {
             var csvMap = CSVReader.getMapFromCSV(args[0]);
             var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
@@ -19,9 +22,6 @@ public class Main {
         }
         catch (IOException e) {
             throw new IOException("\nError - check input");
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Error - no .csv file given");
         }
     }
 

@@ -47,7 +47,7 @@ public class CSVReader {
             } catch (NumberFormatException e) {
                 System.out.printf("Line %d ignored - incorrect format - \"%s\"\n", i + 2, csvList.get(i));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new ArrayIndexOutOfBoundsException("Ensure state name and population value are delimited by a comma \",\"");
+                throw new ArrayIndexOutOfBoundsException("Error - State name and population value are not delimited by \",\" - \"" + csvList.get(i) + "\"");
             }
         }
         if (csvMap.isEmpty()) {
