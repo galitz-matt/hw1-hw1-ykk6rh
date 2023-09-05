@@ -40,8 +40,8 @@ public class Main {
         return apportionmentMap;
     }
 
-    private static void updateApportionmentMap(Map<String, Integer> apportionmentMap, Map<String, Integer> csvMap, int divisor) {
-        apportionmentMap.replaceAll((n, v) -> csvMap.get(n) / divisor);
+    private static void updateApportionmentMap(Map<String, Integer> apportionmentMap, Map<String, Integer> csvMap, double divisor) {
+        apportionmentMap.replaceAll((n, v) -> (int) Math.floor(csvMap.get(n) / divisor));
     }
 
     private static int getApportionedSeats(Map<String, Integer> apportionmentMap) {
@@ -54,10 +54,10 @@ public class Main {
 
     private static void jeffersonAlgorithm(Map<String, Integer> apportionmentMap, Map<String, Integer> csvMap, int totalSeats, int divisor) {
         int apportionedSeats;
-        var low = 0;
-        var high = divisor;
-        var mid = divisor / 2;
-        while (true) {
+        double low = 0;
+        double high = divisor;
+        double mid = (double) divisor / 2;
+        while (low < high) {
             updateApportionmentMap(apportionmentMap, csvMap, mid);
             apportionedSeats = getApportionedSeats(apportionmentMap);
             if (apportionedSeats < totalSeats) {
