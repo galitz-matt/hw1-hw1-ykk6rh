@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         if (args.length < 1) {
-            throw new ArrayIndexOutOfBoundsException("Error - no .csv file given");
+            throw new IOException("Error - No .csv file given");
         }
         var csvMap = CSVReader.getMapFromCSV(args[0]);
         var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
