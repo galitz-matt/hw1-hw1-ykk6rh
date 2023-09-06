@@ -1,6 +1,5 @@
 package main.java.edu.virginia.sde.hw1;
 
-import java.util.*;
 import java.io.*;
 
 public class Main {
@@ -19,11 +18,11 @@ public class Main {
         }
     }
 
-    private static int getDivisor(StateData stateData, int numSeats) {
-        return stateData.getTotalPopulation() / numSeats;
+    private static double getDivisor(StateData stateData, int numSeats) {
+        return (double) stateData.getTotalPopulation() / numSeats;
     }
 
-    private static void jeffersonAlgorithm(StateData stateData, int totalSeats, int divisor) {
+    private static void jeffersonAlgorithm(StateData stateData, int totalSeats, double divisor) {
         int apportionedSeats;
         double low = 0;
         double high = divisor;
