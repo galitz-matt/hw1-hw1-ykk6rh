@@ -26,7 +26,7 @@ public class Main {
         int apportionedSeats;
         double low = 0;
         double high = divisor;
-        double mid = (double) divisor / 2;
+        double mid = divisor / 2;
         while (true) {
             stateData.setApportionmentMap(mid);
             apportionedSeats = stateData.getApportionedSeats();
