@@ -5,8 +5,10 @@
 1) Matthew Galitz, ykk6rh, galitz-matt
 
 ## To Run
-
-[Add a brief description of how to build and run your .jar file based on this code]
+1) Open Terminal/PowerShell
+2) Clone repository and cd into directory, hw1-hw1-ykk6rh
+3) Enter ".\gradlew build" in the command line, Apportionment-1.0.jar is generated in directory, build/libs
+4) Enter "java -jar <Relative path of Apportionment-1.0.jar> <Relative path of .csv file>" in the command line
 
 ## Contributions
 
