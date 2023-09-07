@@ -7,8 +7,8 @@
 ## To Run
 1) Open Terminal/PowerShell
 2) Clone repository and cd into directory: hw1-hw1-ykk6rh
-3) Enter ".\gradlew build" in the command line, Apportionment-1.0.jar is generated in directory: build/libs
-4) Enter "java -jar <Relative path of Apportionment-1.0.jar> <Relative path of .csv file>" in the command line
+3) Enter ".\gradlew build" in the command line, Apportionment-1.0.jar is generated in directory: build/libs 
+4) Enter "java -jar [relative path of Apportionment-1.0.jar] [Relative path of .csv file]" in the command line
 
 ## Contributions
 
