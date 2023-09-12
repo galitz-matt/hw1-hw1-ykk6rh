@@ -3,9 +3,9 @@ package main.java.edu.virginia.sde.hw1;
 import java.io.*;
 import java.util.*;
 
-public class CSVReader {
+public class CSVReader implements Reader{
 
-    public static List<String> getListFromCSV(String filePath) {
+    public static List<String> getStateDataList(String filePath) {
         try (var reader = new BufferedReader(new FileReader(filePath))) {
             var lineList = new ArrayList<String>();
             reader.readLine(); // skip header row
@@ -30,8 +30,8 @@ public class CSVReader {
         return orderedStates;
     }
 
-    public static Map<String, Integer> getMapFromCSV(String filePath) throws IOException {
-        var csvList = getListFromCSV(filePath);
+    public static Map<String, Integer> getStateDataMap(String filePath) throws IOException{
+        var csvList = getStateDataList(filePath);
         var csvMap = new HashMap<String, Integer>();
         for (int i = 0; i < csvList.size(); i++) {
             var keyValue = csvList.get(i).split(",");
