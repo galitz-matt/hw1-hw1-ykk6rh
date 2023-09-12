@@ -28,16 +28,19 @@ public class CSVStateDataReader implements StateDataReader {
         for (int i = 0; i < stateDataList.size(); i++) {
             var keyValue = stateDataList.get(i).split(",");
             try {
-                var stateName = keyValue[0].strip();
-                var statePopulation = Integer.parseInt(keyValue[1].strip());
-                if (statePopulation >= 0) {
-                    stateDataMap.put(stateName, statePopulation);
-                } else {
+                var name = keyValue[0].strip();
+                var population = Integer.parseInt(keyValue[1].strip());
+                if (population >= 0) {
+                    stateDataMap.put(name, population);
+                }
+                else {
                     System.out.printf("Line %d ignored - Population must be positive integer value - \"%s\" \n", i + 2, stateDataList.get(i));
                 }
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 System.out.printf("Line %d ignored - Bad format - \"%s\"\n", i + 2, stateDataList.get(i));
-            } catch (ArrayIndexOutOfBoundsException e) {
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
                 String errorMessage = String.format("Error - Line %d has bad format - \"%s\"", i + 2, stateDataList.get(i));
                 throw new IOException(errorMessage);
             }
