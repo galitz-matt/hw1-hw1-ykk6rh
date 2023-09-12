@@ -5,7 +5,7 @@ import java.util.*;
 
 public class CSVStateDataReader implements StateDataReader {
 
-    public static List<String> getStateDataList(String filePath) throws IOException {
+    public static List<String> getStateDataList(String filePath) {
         try (var reader = new BufferedReader(new FileReader(filePath))) {
             var lineList = new ArrayList<String>();
             reader.readLine(); // skip header row
@@ -16,13 +16,13 @@ public class CSVStateDataReader implements StateDataReader {
             return lineList;
         } catch (FileNotFoundException e) {
             var errorMessage = String.format("Error - file \"%s\" not found\n", filePath);
-            throw new FileNotFoundException(errorMessage);
+            throw new RuntimeException(errorMessage);
         } catch (IOException e) {
-            throw new IOException("Error - verify input correctness");
+            throw new RuntimeException("Error - verify input correctness");
         }
     }
 
-    public static Map<String, Integer> getStateDataMap(String filePath) throws IOException {
+    public static Map<String, Integer> getStateDataMap(String filePath) {
         var stateDataList = getStateDataList(filePath);
         var stateDataMap = new HashMap<String, Integer>();
         for (int i = 0; i < stateDataList.size(); i++) {
@@ -42,11 +42,11 @@ public class CSVStateDataReader implements StateDataReader {
             }
             catch (ArrayIndexOutOfBoundsException e) {
                 String errorMessage = String.format("Error - Line %d has bad format - \"%s\"", i + 2, stateDataList.get(i));
-                throw new IOException(errorMessage);
+                throw new RuntimeException(errorMessage);
             }
         }
         if (stateDataMap.isEmpty()) {
-            throw new IOException("\nError - .csv file is empty or no lines are properly formatted");
+            throw new RuntimeException("\nError - .csv file is empty or no lines are properly formatted");
         }
         return stateDataMap;
     }
