@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         if (args.length < 1) {
-            throw new IOException("Error - No .csv file given");
+            throw new RuntimeException("Error - No .csv file given");
         }
         var stateData = new StateData(CSVStateDataReader.getStateDataMap(args[0]));
         var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
