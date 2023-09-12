@@ -5,7 +5,7 @@ import java.util.*;
 
 public class CSVStateDataReader implements StateDataReader {
 
-    public static List<String> getStateDataList(String filePath) {
+    public static List<String> getLines(String filePath) {
         try (var reader = new BufferedReader(new FileReader(filePath))) {
             var lineList = new ArrayList<String>();
             reader.readLine(); // skip header row
@@ -23,7 +23,7 @@ public class CSVStateDataReader implements StateDataReader {
     }
 
     public static Map<String, Integer> getStateDataMap(String filePath) {
-        var stateDataList = getStateDataList(filePath);
+        var stateDataList = getLines(filePath);
         var stateDataMap = new HashMap<String, Integer>();
         for (int i = 0; i < stateDataList.size(); i++) {
             var keyValue = stateDataList.get(i).split(",");
