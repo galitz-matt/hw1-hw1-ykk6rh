@@ -8,7 +8,8 @@ public class Main {
         if (args.length < 1) {
             throw new RuntimeException("Error - No .csv file given");
         }
-        var stateData = new StateData(CSVStateDataReader.getStateDataMap(args[0]));
+        var csvReader = new CSVReader(args[0]);
+        var stateData = new StateData(csvReader.statePopulation);
         var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
         var divisor = getDivisor(stateData, totalSeats);
         jeffersonAlgorithm(stateData, totalSeats, divisor);

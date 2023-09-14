@@ -2,7 +2,7 @@ package main.java.edu.virginia.sde.hw1;
 
 import java.util.*;
 
-public class XLSXStateDataReader implements StateDataReader {
+public class XLSXReader implements Reader {
 
     public List<String> getLines() {
         return null;
