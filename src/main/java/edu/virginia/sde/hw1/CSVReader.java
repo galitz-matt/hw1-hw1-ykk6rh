@@ -18,14 +18,13 @@ public class CSVReader implements Reader {
         return Arrays.stream(headings.split(",")).map(String::trim).map(String::toLowerCase).toArray(String[]::new);
     }
 
-    private int findXHeading(String[] parsedHeadings, String X) {
+    private int findXHeading(String[] parsedHeadings, String heading) {
         for (int i = 0; i < parsedHeadings.length; i++) {
-            if (parsedHeadings[i].equalsIgnoreCase(X.toLowerCase())) {
+            if (parsedHeadings[i].equalsIgnoreCase(heading.toLowerCase())) {
                 return i;
             }
         }
-        String errorMessage = String.format("Error - \"%s\" column heading not found", X);
-        throw new RuntimeException(errorMessage);
+        throw new RuntimeException(ErrorMessages.columnHeadingNotFoundError(heading));
     }
 
     private void processHeadings(BufferedReader reader) {
@@ -36,7 +35,7 @@ public class CSVReader implements Reader {
             POPULATION = findXHeading(parsedHeadings, "population");
         }
         catch (IOException e) {
-            throw new RuntimeException("Error - check input");
+            throw new RuntimeException(ErrorMessages.inputError());
         }
     }
 
@@ -48,7 +47,7 @@ public class CSVReader implements Reader {
             }
         }
         catch (IOException e) {
-            throw new RuntimeException("Error - check input");
+            throw new RuntimeException(ErrorMessages.inputError());
         }
     }
 
@@ -58,8 +57,7 @@ public class CSVReader implements Reader {
             processHeadings(reader);
             populateFileLinesBuild(reader, fileLinesBuild);
         } catch (IOException e) {
-            var errorMessage = String.format("Error - file \"%s\" not found\n", filePath);
-            throw new RuntimeException(errorMessage);
+            throw new RuntimeException(ErrorMessages.fileNotFoundError(filePath));
         }
         return fileLinesBuild;
     }
@@ -84,13 +82,13 @@ public class CSVReader implements Reader {
             statePopulationsBuild.put(name, population);
         }
         else {
-            System.out.printf("Line %d ignored - Population must be positive integer value - \"%s\" \n", lineNumber + 2, fileLines.get(lineNumber));
+            System.out.printf(ErrorMessages.negativePopulationError(fileLines, lineNumber));
         }
     }
 
-    private void addressEmptyStatePopulationsBuild(Map<String, Integer> statePopulationsBuild) {
+    private void checkEmptyStatePopulationsBuild(Map<String, Integer> statePopulationsBuild) {
         if (statePopulationsBuild.isEmpty()) {
-            throw new RuntimeException("\nError - .csv file is empty or no lines are properly formatted");
+            throw new RuntimeException(ErrorMessages.badFileFormatError(".csv"));
         }
     }
 
@@ -100,14 +98,11 @@ public class CSVReader implements Reader {
             try {
                 putLineToStatePopulationsBuild(statePopulationsBuild, lineNumber);
             }
-            catch (NumberFormatException e) {
-                System.out.printf("Line %d ignored - Bad format - \"%s\"\n", lineNumber + 2, fileLines.get(lineNumber));
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
-                System.out.printf("Line %d ignored - Bad format - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
+            catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                System.out.println(ErrorMessages.badLineFormat(fileLines, lineNumber));
             }
         }
-        addressEmptyStatePopulationsBuild(statePopulationsBuild);
+        checkEmptyStatePopulationsBuild(statePopulationsBuild);
         return statePopulationsBuild;
     }
 
