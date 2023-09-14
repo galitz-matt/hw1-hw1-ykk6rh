@@ -5,8 +5,8 @@ import java.util.*;
 
 public class CSVReader implements Reader {
 
-    public static List<String> fileLines = new ArrayList<>();
-    public static Map<String, Integer> statePopulation = new HashMap<>();
+    private List<String> fileLines = new ArrayList<>();
+    private Map<String, Integer> statePopulation = new HashMap<>();
 
     public CSVReader(String filePath) {
         setFileLines(filePath);

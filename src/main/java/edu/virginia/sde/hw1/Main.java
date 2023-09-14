@@ -9,12 +9,12 @@ public class Main {
             throw new RuntimeException("Error - No .csv file given");
         }
         var csvReader = new CSVReader(args[0]);
-        var stateData = new StateData(csvReader.statePopulation);
+        var stateData = new StateData(csvReader.getStatePopulation());
         var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
         var divisor = getDivisor(stateData, totalSeats);
         jeffersonAlgorithm(stateData, totalSeats, divisor);
-        for (String stateName : getStatesInAlphabeticalOrder(stateData.statePopulationMap)) {
-            var numStateSeats = stateData.apportionmentMap.get(stateName);
+        for (String stateName : getStatesInAlphabeticalOrder(stateData.getStatePopulation())) {
+            var numStateSeats = stateData.getApportionmentMap().get(stateName);
             System.out.printf("%s - %d\n", stateName, numStateSeats);
         }
     }

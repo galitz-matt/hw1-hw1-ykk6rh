@@ -4,11 +4,23 @@ import java.util.*;
 
 public class XLSXReader implements Reader {
 
-    public List<String> getLines() {
-        return null;
+    private List<String> fileLines = new ArrayList<>();
+    private Map<String, Integer> statePopulation = new HashMap<>();
+
+    public XLSXReader(String filePath) {
+        setFileLines(filePath);
+        setStatePopulation();
     }
 
-    public Map<String, Integer> getStateDataMap() {
-        return null;
+    private void setFileLines(String filePath) {
+
     }
+
+    private void setStatePopulation() {
+
+    }
+
+    public List<String> getFileLines() { return null; }
+
+    public Map<String, Integer> getStatePopulation() { return null; }
 }

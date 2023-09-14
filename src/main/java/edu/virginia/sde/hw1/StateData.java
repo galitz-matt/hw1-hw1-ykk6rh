@@ -3,26 +3,25 @@ package main.java.edu.virginia.sde.hw1;
 import java.util.*;
 public class StateData {
 
-    public Map<String, Integer> statePopulationMap;
-    public Map<String, Integer> apportionmentMap;
+    private Map<String, Integer> statePopulation;
+    private Map<String, Integer> apportionmentMap = new HashMap<>();
+    private long totalPopulation;
 
 
-    public StateData(Map<String, Integer> csvMap) {
-        statePopulationMap = csvMap;
-        apportionmentMap = new HashMap<>();
+    public StateData(Map<String, Integer> dataMap) {
+        statePopulation = dataMap;
+        setTotalPopulation();
     }
 
-    public int getTotalPopulation() {
-        int totalPopulation = 0;
-        for (String stateName : statePopulationMap.keySet()) {
-            totalPopulation += statePopulationMap.get(stateName);
+    public void setTotalPopulation() {
+        for (String stateName : statePopulation.keySet()) {
+            totalPopulation += statePopulation.get(stateName);
         }
-        return totalPopulation;
     }
 
     public void setApportionmentMap(double divisor) {
-        for (String stateName : statePopulationMap.keySet()) {
-            apportionmentMap.put(stateName, (int) Math.floor((double) statePopulationMap.get(stateName) / divisor));
+        for (String stateName : statePopulation.keySet()) {
+            apportionmentMap.put(stateName, (int) Math.floor((double) statePopulation.get(stateName) / divisor));
         }
     }
 
@@ -34,4 +33,15 @@ public class StateData {
         return apportionedSeats;
     }
 
+    public Map<String, Integer> getStatePopulation() {
+        return statePopulation;
+    }
+
+    public Map<String, Integer> getApportionmentMap() {
+        return apportionmentMap;
+    }
+
+    public long getTotalPopulation() {
+        return totalPopulation;
+    }
 }

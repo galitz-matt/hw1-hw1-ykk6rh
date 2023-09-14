@@ -3,13 +3,12 @@ package main.java.edu.virginia.sde.hw1;
 import java.util.*;
 public interface Reader {
 
-    static List<String> getLines() {
-        return new ArrayList<>();
-    }
+    private void setFileLines(String filePath) {}
 
-    static Map<String, Integer> getStateDataMap() {
-        return new HashMap<>();
-    }
+    private void setStatePopulation(List<String> fileLines) {}
+    List<String> getFileLines();
+
+    Map<String, Integer> getStatePopulation();
 
 }
 
