@@ -7,6 +7,8 @@ public class CSVReader implements Reader {
 
     private final List<String> fileLines = new ArrayList<>();
     private final Map<String, Integer> statePopulation = new HashMap<>();
+    private final int STATE_NAME = 0;
+    private final int STATE_POPULATION = 1;
 
     public CSVReader(String filePath) {
         setFileLines(filePath);
@@ -29,23 +31,23 @@ public class CSVReader implements Reader {
     }
 
     private void setStatePopulation(List<String> fileLines) {
-        for (int i = 0; i < fileLines.size(); i++) {
-            var splitLine = fileLines.get(i).split(",");
+        for (int lineNumber = 0; lineNumber < fileLines.size(); lineNumber++) {
+            var splitLine = fileLines.get(lineNumber).split(",");
             try {
-                var name = splitLine[0].strip();
-                var population = Integer.parseInt(splitLine[1].strip());
+                var name = splitLine[STATE_NAME].strip();
+                var population = Integer.parseInt(splitLine[STATE_POPULATION].strip());
                 if (population >= 0) {
                     statePopulation.put(name, population);
                 }
                 else {
-                    System.out.printf("Line %d ignored - Population must be positive integer value - \"%s\" \n", i + 2, fileLines.get(i));
+                    System.out.printf("Line %d ignored - Population must be positive integer value - \"%s\" \n", lineNumber + 2, fileLines.get(lineNumber));
                 }
             }
             catch (NumberFormatException e) {
-                System.out.printf("Line %d ignored - Bad format - \"%s\"\n", i + 2, fileLines.get(i));
+                System.out.printf("Line %d ignored - Bad format - \"%s\"\n", lineNumber + 2, fileLines.get(lineNumber));
             }
             catch (ArrayIndexOutOfBoundsException e) {
-                String errorMessage = String.format("Error - Line %d has bad format - \"%s\"", i + 2, fileLines.get(i));
+                String errorMessage = String.format("Error - Line %d has bad format - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
                 throw new RuntimeException(errorMessage);
             }
         }
