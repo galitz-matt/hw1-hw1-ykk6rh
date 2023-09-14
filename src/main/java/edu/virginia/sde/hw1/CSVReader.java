@@ -99,7 +99,7 @@ public class CSVReader implements Reader {
                 putLineToStatePopulationsBuild(statePopulationsBuild, lineNumber);
             }
             catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.out.println(ErrorMessages.badLineFormat(fileLines, lineNumber));
+                System.out.println(ErrorMessages.badLineFormatError(fileLines, lineNumber));
             }
         }
         checkEmptyStatePopulationsBuild(statePopulationsBuild);

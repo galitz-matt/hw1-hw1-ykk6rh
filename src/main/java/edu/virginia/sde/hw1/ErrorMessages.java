@@ -7,22 +7,26 @@ public class ErrorMessages {
         return "Error - check input";
     }
     public static String columnHeadingNotFoundError(String heading) {
-        return String.format("Error - \"%s\" column heading not found", heading);
+        return String.format("\nERROR: \"%s\" column heading not found", heading);
     }
 
     public static String fileNotFoundError(String filePath) {
-        return String.format("Error - file \"%s\" not found", filePath);
+        return String.format("ERROR: Cannot find file \"%s\"", filePath);
     }
 
     public static String negativePopulationError(List<String> fileLines, int lineNumber) {
-        return String.format("Line %d ignored - Population must be positive integer value - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
+        return String.format("Line %d ignored because population must be positive integer value: \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
     }
 
     public static String badFileFormatError(String fileType) {
-        return String.format("\nError - %s file is empty or no lines are properly formatted", fileType);
+        return String.format("\nERROR: %s file is empty or no lines are properly formatted", fileType);
     }
 
-    public static String badLineFormat(List<String> fileLines, int lineNumber) {
-        return String.format("Line %d ignored - Bad format - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
+    public static String badLineFormatError(List<String> fileLines, int lineNumber) {
+        return String.format("Line %d ignored because of bad format: \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
+    }
+
+    public static String noFileGivenError() {
+        return "ERROR: No file given";
     }
 }
