@@ -3,9 +3,9 @@ package main.java.edu.virginia.sde.hw1;
 import java.util.*;
 public class StateData {
 
-    private Map<String, Integer> statePopulation;
-    private Map<String, Integer> apportionmentMap = new HashMap<>();
-    private long totalPopulation;
+    protected Map<String, Integer> statePopulation;
+    protected Map<String, Integer> apportionmentMap = new HashMap<>();
+    protected long totalPopulation;
 
 
     public StateData(Map<String, Integer> dataMap) {

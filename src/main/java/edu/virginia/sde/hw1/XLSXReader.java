@@ -4,8 +4,8 @@ import java.util.*;
 
 public class XLSXReader implements Reader {
 
-    private List<String> fileLines = new ArrayList<>();
-    private Map<String, Integer> statePopulation = new HashMap<>();
+    protected List<String> fileLines = new ArrayList<>();
+    protected Map<String, Integer> statePopulation = new HashMap<>();
 
     public XLSXReader(String filePath) {
         setFileLines(filePath);
@@ -19,8 +19,6 @@ public class XLSXReader implements Reader {
     private void setStatePopulation() {
 
     }
-
-    public List<String> getFileLines() { return null; }
 
     public Map<String, Integer> getStatePopulation() { return null; }
 }
