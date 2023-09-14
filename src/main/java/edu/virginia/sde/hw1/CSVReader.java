@@ -82,7 +82,7 @@ public class CSVReader implements Reader {
             statePopulationsBuild.put(name, population);
         }
         else {
-            System.out.printf(ErrorMessages.negativePopulationError(fileLines, lineNumber));
+            System.out.println(ErrorMessages.negativePopulationError(fileLines, lineNumber));
         }
     }
 

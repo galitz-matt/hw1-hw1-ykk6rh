@@ -11,11 +11,11 @@ public class ErrorMessages {
     }
 
     public static String fileNotFoundError(String filePath) {
-        return String.format("Error - file \"%s\" not found\n", filePath);
+        return String.format("Error - file \"%s\" not found", filePath);
     }
 
     public static String negativePopulationError(List<String> fileLines, int lineNumber) {
-        return String.format("Line %d ignored - Population must be positive integer value - \"%s\" \n", lineNumber + 2, fileLines.get(lineNumber));
+        return String.format("Line %d ignored - Population must be positive integer value - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
     }
 
     public static String badFileFormatError(String fileType) {
@@ -23,6 +23,6 @@ public class ErrorMessages {
     }
 
     public static String badLineFormat(List<String> fileLines, int lineNumber) {
-        return String.format("Line %d ignored - Bad format - \"%s\"\n", lineNumber + 2, fileLines.get(lineNumber));
+        return String.format("Line %d ignored - Bad format - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
     }
 }
