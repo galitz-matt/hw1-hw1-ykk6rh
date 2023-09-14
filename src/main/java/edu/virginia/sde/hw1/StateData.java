@@ -50,9 +50,10 @@ public class StateData {
     }
 
     public void printData() {
+
         int numStateSeats;
         for (String stateName : getStatesInAlphabeticalOrder()) {
-            numStateSeats = getApportionmentMap().get(stateName);
+            numStateSeats = apportionmentMap.get(stateName);
             System.out.printf("%s - %d\n", stateName, numStateSeats);
         }
     }

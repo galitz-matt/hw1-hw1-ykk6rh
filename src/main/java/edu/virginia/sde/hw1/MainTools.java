@@ -8,6 +8,16 @@ public class MainTools {
         }
     }
 
+    protected static String checkFileType(String filePath) {
+        try {
+            var parsedFilePath = filePath.split("[\\//]");
+            var file = parsedFilePath[parsedFilePath.length - 1];
+            return file.split("\\.")[1];
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            throw new RuntimeException(ErrorMessages.filePathFormatError(filePath));
+        }
+    }
     protected static int numberOfSeats(String[] args) {
         return args.length < 2 ? 435 : Integer.parseInt(args[1]);
     }

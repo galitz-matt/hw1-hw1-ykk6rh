@@ -88,7 +88,7 @@ public class CSVReader implements Reader {
 
     private void checkEmptyStatePopulationsBuild(Map<String, Integer> statePopulationsBuild) {
         if (statePopulationsBuild.isEmpty()) {
-            throw new RuntimeException(ErrorMessages.badFileFormatError(".csv"));
+            throw new RuntimeException(ErrorMessages.fileContentFormatError());
         }
     }
 
@@ -99,7 +99,7 @@ public class CSVReader implements Reader {
                 putLineToStatePopulationsBuild(statePopulationsBuild, lineNumber);
             }
             catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.out.println(ErrorMessages.badLineFormatError(fileLines, lineNumber));
+                System.out.println(ErrorMessages.lineFormatError(fileLines, lineNumber));
             }
         }
         checkEmptyStatePopulationsBuild(statePopulationsBuild);
