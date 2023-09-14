@@ -7,8 +7,7 @@ public class CSVReader implements Reader {
 
     private final List<String> fileLines;
     private final Map<String, Integer> statePopulations;
-    private int STATE,
-            POPULATION;
+    private int STATE, POPULATION;
 
     public CSVReader(String filePath) {
         fileLines = setFileLines(filePath);
@@ -69,19 +68,37 @@ public class CSVReader implements Reader {
         return fileLines.get(lineNumber).split(",");
     }
 
+    private String getNameFromParsedLine(String[] parsedLine) {
+        return parsedLine[STATE].strip();
+    }
+
+    private int getPopulationFromParsedLine(String[] parsedLine) {
+        return Integer.parseInt(parsedLine[POPULATION].strip());
+    }
+
+    private void putLineToStatePopulationsBuild(Map<String, Integer> statePopulationsBuild, int lineNumber) {
+        var parsedLine = getParsedLine(lineNumber);
+        var name = getNameFromParsedLine(parsedLine);
+        var population = getPopulationFromParsedLine(parsedLine);
+        if (population >= 0) {
+            statePopulationsBuild.put(name, population);
+        }
+        else {
+            System.out.printf("Line %d ignored - Population must be positive integer value - \"%s\" \n", lineNumber + 2, fileLines.get(lineNumber));
+        }
+    }
+
+    private void addressEmptyStatePopulationsBuild(Map<String, Integer> statePopulationsBuild) {
+        if (statePopulationsBuild.isEmpty()) {
+            throw new RuntimeException("\nError - .csv file is empty or no lines are properly formatted");
+        }
+    }
+
     private Map<String, Integer> setStatePopulations() {
         var statePopulationsBuild = new HashMap<String, Integer>();
         for (int lineNumber = 0; lineNumber < fileLines.size(); lineNumber++) {
-            var parsedLine = getParsedLine(lineNumber);
             try {
-                var name = parsedLine[STATE].strip();
-                var population = Integer.parseInt(parsedLine[POPULATION].strip());
-                if (population >= 0) {
-                    statePopulationsBuild.put(name, population);
-                }
-                else {
-                    System.out.printf("Line %d ignored - Population must be positive integer value - \"%s\" \n", lineNumber + 2, fileLines.get(lineNumber));
-                }
+                putLineToStatePopulationsBuild(statePopulationsBuild, lineNumber);
             }
             catch (NumberFormatException e) {
                 System.out.printf("Line %d ignored - Bad format - \"%s\"\n", lineNumber + 2, fileLines.get(lineNumber));
@@ -90,9 +107,7 @@ public class CSVReader implements Reader {
                 System.out.printf("Line %d ignored - Bad format - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
             }
         }
-        if (statePopulationsBuild.isEmpty()) {
-            throw new RuntimeException("\nError - .csv file is empty or no lines are properly formatted");
-        }
+        addressEmptyStatePopulationsBuild(statePopulationsBuild);
         return statePopulationsBuild;
     }
 
