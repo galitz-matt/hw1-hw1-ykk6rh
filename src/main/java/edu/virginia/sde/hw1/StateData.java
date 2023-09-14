@@ -3,25 +3,27 @@ package main.java.edu.virginia.sde.hw1;
 import java.util.*;
 public class StateData {
 
-    private final Map<String, Integer> statePopulation;
+    private final Map<String, Integer> statePopulations;
     private Map<String, Integer> apportionmentMap = new HashMap<>();
-    private long totalPopulation;
+    private final long totalPopulation;
 
 
     public StateData(Map<String, Integer> dataMap) {
-        statePopulation = dataMap;
-        setTotalPopulation();
+        statePopulations = dataMap;
+        totalPopulation = setTotalPopulation();
     }
 
-    private void setTotalPopulation() {
-        for (String stateName : statePopulation.keySet()) {
-            totalPopulation += statePopulation.get(stateName);
+    private long setTotalPopulation() {
+        var totalPopulationBuild = 0;
+        for (String stateName : statePopulations.keySet()) {
+            totalPopulationBuild += statePopulations.get(stateName);
         }
+        return totalPopulationBuild;
     }
 
     public void setApportionmentMap(double divisor) {
-        for (String stateName : statePopulation.keySet()) {
-            apportionmentMap.put(stateName, (int) Math.floor((double) statePopulation.get(stateName) / divisor));
+        for (String stateName : statePopulations.keySet()) {
+            apportionmentMap.put(stateName, (int) Math.floor((double) statePopulations.get(stateName) / divisor));
         }
     }
 
@@ -34,7 +36,7 @@ public class StateData {
     }
 
     public List<String> getStatesInAlphabeticalOrder() {
-        List<String> orderedStates = new ArrayList<>(statePopulation.keySet());
+        List<String> orderedStates = new ArrayList<>(statePopulations.keySet());
         orderedStates.sort(CharSequence::compare);
         return orderedStates;
     }

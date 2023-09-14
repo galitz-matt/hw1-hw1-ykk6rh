@@ -21,5 +21,5 @@ public class XLSXReader implements Reader {
     private void setStatePopulation() {
     }
 
-    public Map<String, Integer> getStatePopulation() { return null; }
+    public Map<String, Integer> getStatePopulations() { return null; }
 }

@@ -7,7 +7,7 @@ public interface Reader {
 
     private void setStatePopulation(List<String> fileLines) {}
 
-    Map<String, Integer> getStatePopulation();
+    Map<String, Integer> getStatePopulations();
 
 }
 

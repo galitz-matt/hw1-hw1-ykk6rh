@@ -5,15 +5,21 @@ import java.util.*;
 
 public class CSVReader implements Reader {
 
-    private List<String> fileLines;
-    private Map<String, Integer> statePopulation;
-    private int STATE_NAME = -1,
-            STATE_POPULATION = -1;
+    private final List<String> fileLines;
+    private final Map<String, Integer> statePopulations;
+    private int STATE,
+            POPULATION;
 
     public CSVReader(String filePath) {
         fileLines = setFileLines(filePath);
-        statePopulation = setStatePopulation(fileLines);
+        statePopulations = setStatePopulations(fileLines);
     }
+
+    private static String[] getReformattedHeader(String header) {
+        return Arrays.stream(header.split(",")).map(String::trim).map(String::toLowerCase).toArray(String[]::new);
+    }
+
+
 
     private List<String> setFileLines(String filePath) {
         var fileLinesBuild = new ArrayList<String>();
@@ -32,13 +38,13 @@ public class CSVReader implements Reader {
         }
     }
 
-    private Map<String, Integer> setStatePopulation(List<String> fileLines) {
+    private Map<String, Integer> setStatePopulations(List<String> fileLines) {
         var statePopulationBuild = new HashMap<String, Integer>();
         for (int lineNumber = 0; lineNumber < fileLines.size(); lineNumber++) {
             var splitLine = fileLines.get(lineNumber).split(",");
             try {
-                var name = splitLine[STATE_NAME].strip();
-                var population = Integer.parseInt(splitLine[STATE_POPULATION].strip());
+                var name = splitLine[0].strip();
+                var population = Integer.parseInt(splitLine[1].strip());
                 if (population >= 0) {
                     statePopulationBuild.put(name, population);
                 }
@@ -54,14 +60,14 @@ public class CSVReader implements Reader {
                 throw new RuntimeException(errorMessage);
             }
         }
-        if (statePopulation.isEmpty()) {
+        if (statePopulations.isEmpty()) {
             throw new RuntimeException("\nError - .csv file is empty or no lines are properly formatted");
         }
         return statePopulationBuild;
     }
 
-    public Map<String, Integer> getStatePopulation() {
-        return statePopulation;
+    public Map<String, Integer> getStatePopulations() {
+        return statePopulations;
     }
 
 }
