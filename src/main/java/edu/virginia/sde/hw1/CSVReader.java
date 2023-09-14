@@ -12,7 +12,7 @@ public class CSVReader implements Reader {
 
     public CSVReader(String filePath) {
         fileLines = setFileLines(filePath);
-        statePopulations = setStatePopulations(fileLines);
+        statePopulations = setStatePopulations();
     }
 
     private static String[] getParsedHeadings(String headings) {
@@ -25,7 +25,7 @@ public class CSVReader implements Reader {
                 return i;
             }
         }
-        throw new RuntimeException("\"State\" column heading not found");
+        throw new RuntimeException("Error - \"State\" column heading not found");
     }
 
     private int findPopulationHeading(String[] parsedHeader) {
@@ -34,7 +34,7 @@ public class CSVReader implements Reader {
                 return i;
             }
         }
-        throw new RuntimeException("\"Population\" column heading not found");
+        throw new RuntimeException("Error - \"Population\" column heading not found");
     }
 
     private void processHeadings(BufferedReader reader) {
@@ -45,7 +45,19 @@ public class CSVReader implements Reader {
             POPULATION = findPopulationHeading(parsedHeadings);
         }
         catch (IOException e) {
-            throw new RuntimeException("Error");
+            throw new RuntimeException("Error - check input");
+        }
+    }
+
+    private void populateFileLinesBuild(BufferedReader reader, List<String> fileLinesBuild) {
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fileLinesBuild.add(line);
+            }
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Error - check input");
         }
     }
 
@@ -53,26 +65,25 @@ public class CSVReader implements Reader {
         var fileLinesBuild = new ArrayList<String>();
         try (var reader = new BufferedReader(new FileReader(filePath))) {
             processHeadings(reader);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                fileLinesBuild.add(line);
-            }
-            return fileLinesBuild;
-        } catch (FileNotFoundException e) {
+            populateFileLinesBuild(reader, fileLinesBuild);
+        } catch (IOException e) {
             var errorMessage = String.format("Error - file \"%s\" not found\n", filePath);
             throw new RuntimeException(errorMessage);
-        } catch (IOException e) {
-            throw new RuntimeException("Error - verify input correctness");
         }
+        return fileLinesBuild;
     }
 
-    private Map<String, Integer> setStatePopulations(List<String> fileLines) {
+    private String[] getParsedLine(int lineNumber) {
+        return fileLines.get(lineNumber).split(",");
+    }
+
+    private Map<String, Integer> setStatePopulations() {
         var statePopulationsBuild = new HashMap<String, Integer>();
         for (int lineNumber = 0; lineNumber < fileLines.size(); lineNumber++) {
-            var splitLine = fileLines.get(lineNumber).split(",");
+            var parsedLine = getParsedLine(lineNumber);
             try {
-                var name = splitLine[STATE].strip();
-                var population = Integer.parseInt(splitLine[POPULATION].strip());
+                var name = parsedLine[STATE].strip();
+                var population = Integer.parseInt(parsedLine[POPULATION].strip());
                 if (population >= 0) {
                     statePopulationsBuild.put(name, population);
                 }
@@ -84,8 +95,7 @@ public class CSVReader implements Reader {
                 System.out.printf("Line %d ignored - Bad format - \"%s\"\n", lineNumber + 2, fileLines.get(lineNumber));
             }
             catch (ArrayIndexOutOfBoundsException e) {
-                String errorMessage = String.format("Error - Line %d has bad format - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
-                throw new RuntimeException(errorMessage);
+                System.out.printf("Line %d ignored - Bad format - \"%s\"", lineNumber + 2, fileLines.get(lineNumber));
             }
         }
         if (statePopulationsBuild.isEmpty()) {
