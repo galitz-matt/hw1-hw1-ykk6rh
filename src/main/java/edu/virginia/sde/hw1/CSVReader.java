@@ -30,10 +30,10 @@ public class CSVReader implements Reader {
 
     private void setStatePopulation(List<String> fileLines) {
         for (int i = 0; i < fileLines.size(); i++) {
-            var keyValue = fileLines.get(i).split(",");
+            var splitLine = fileLines.get(i).split(",");
             try {
-                var name = keyValue[0].strip();
-                var population = Integer.parseInt(keyValue[1].strip());
+                var name = splitLine[0].strip();
+                var population = Integer.parseInt(splitLine[1].strip());
                 if (population >= 0) {
                     statePopulation.put(name, population);
                 }

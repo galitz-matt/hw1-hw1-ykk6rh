@@ -13,7 +13,7 @@ public class StateData {
         setTotalPopulation();
     }
 
-    public void setTotalPopulation() {
+    private void setTotalPopulation() {
         for (String stateName : statePopulation.keySet()) {
             totalPopulation += statePopulation.get(stateName);
         }

@@ -11,7 +11,7 @@ public class Main {
         var csvReader = new CSVReader(args[0]);
         var stateData = new StateData(csvReader.getStatePopulation());
         var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
-        var divisor = getDivisor(stateData, totalSeats);
+        var divisor = getDivisor(stateData.getTotalPopulation(), totalSeats);
         jeffersonAlgorithm(stateData, totalSeats, divisor);
         for (String stateName : getStatesInAlphabeticalOrder(stateData.getStatePopulation())) {
             var numStateSeats = stateData.getApportionmentMap().get(stateName);
@@ -25,8 +25,8 @@ public class Main {
         return orderedStates;
     }
 
-    private static double getDivisor(StateData stateData, int numSeats) {
-        return (double) stateData.getTotalPopulation() / numSeats;
+    private static double getDivisor(long totalPopulation, int numSeats) {
+        return (double) totalPopulation / numSeats;
     }
 
     private static void jeffersonAlgorithm(StateData stateData, int totalSeats, double divisor) {
