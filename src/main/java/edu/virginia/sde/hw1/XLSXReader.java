@@ -4,8 +4,8 @@ import java.util.*;
 
 public class XLSXReader implements Reader {
 
-    protected List<String> fileLines = new ArrayList<>();
-    protected Map<String, Integer> statePopulation = new HashMap<>();
+    private final List<String> fileLines = new ArrayList<>();
+    private final Map<String, Integer> statePopulation = new HashMap<>();
 
     public XLSXReader(String filePath) {
         setFileLines(filePath);
