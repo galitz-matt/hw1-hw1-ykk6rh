@@ -13,16 +13,7 @@ public class Main {
         var totalSeats = args.length < 2 ? 435 : Integer.parseInt(args[1]);
         var divisor = getDivisor(stateData.getTotalPopulation(), totalSeats);
         jeffersonAlgorithm(stateData, totalSeats, divisor);
-        for (String stateName : getStatesInAlphabeticalOrder(stateData.getStatePopulation())) {
-            var numStateSeats = stateData.getApportionmentMap().get(stateName);
-            System.out.printf("%s - %d\n", stateName, numStateSeats);
-        }
-    }
-
-    private static List<String> getStatesInAlphabeticalOrder(Map<String, Integer> stateDataMap) {
-        List<String> orderedStates = new ArrayList<>(stateDataMap.keySet());
-        orderedStates.sort(CharSequence::compare);
-        return orderedStates;
+        stateData.printData();
     }
 
     private static double getDivisor(long totalPopulation, int numSeats) {

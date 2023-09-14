@@ -33,8 +33,10 @@ public class StateData {
         return apportionedSeats;
     }
 
-    public Map<String, Integer> getStatePopulation() {
-        return statePopulation;
+    public List<String> getStatesInAlphabeticalOrder() {
+        List<String> orderedStates = new ArrayList<>(statePopulation.keySet());
+        orderedStates.sort(CharSequence::compare);
+        return orderedStates;
     }
 
     public Map<String, Integer> getApportionmentMap() {
@@ -43,5 +45,13 @@ public class StateData {
 
     public long getTotalPopulation() {
         return totalPopulation;
+    }
+
+    public void printData() {
+        int numStateSeats;
+        for (String stateName : getStatesInAlphabeticalOrder()) {
+            numStateSeats = getApportionmentMap().get(stateName);
+            System.out.printf("%s - %d\n", stateName, numStateSeats);
+        }
     }
 }

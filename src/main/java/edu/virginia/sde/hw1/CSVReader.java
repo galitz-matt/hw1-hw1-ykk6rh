@@ -54,10 +54,6 @@ public class CSVReader implements Reader {
         }
     }
 
-    public List<String> getFileLines() {
-        return fileLines;
-    }
-
     public Map<String, Integer> getStatePopulation() {
         return statePopulation;
     }
