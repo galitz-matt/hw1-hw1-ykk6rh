@@ -19,30 +19,22 @@ public class CSVReader implements Reader {
         return Arrays.stream(headings.split(",")).map(String::trim).map(String::toLowerCase).toArray(String[]::new);
     }
 
-    private int findStateHeading(String[] parsedHeadings) {
+    private int findXHeading(String[] parsedHeadings, String X) {
         for (int i = 0; i < parsedHeadings.length; i++) {
-            if (parsedHeadings[i].equalsIgnoreCase("state")) {
+            if (parsedHeadings[i].equalsIgnoreCase(X.toLowerCase())) {
                 return i;
             }
         }
-        throw new RuntimeException("Error - \"State\" column heading not found");
-    }
-
-    private int findPopulationHeading(String[] parsedHeader) {
-        for (int i = 0; i < parsedHeader.length; i++) {
-            if (parsedHeader[i].equalsIgnoreCase("population")) {
-                return i;
-            }
-        }
-        throw new RuntimeException("Error - \"Population\" column heading not found");
+        String errorMessage = String.format("Error - \"%s\" column heading not found", X);
+        throw new RuntimeException(errorMessage);
     }
 
     private void processHeadings(BufferedReader reader) {
         try {
             var headings = reader.readLine();
             var parsedHeadings = getParsedHeadings(headings);
-            STATE = findStateHeading(parsedHeadings);
-            POPULATION = findPopulationHeading(parsedHeadings);
+            STATE = findXHeading(parsedHeadings, "state");
+            POPULATION = findXHeading(parsedHeadings, "population");
         }
         catch (IOException e) {
             throw new RuntimeException("Error - check input");
