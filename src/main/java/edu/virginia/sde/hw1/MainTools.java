@@ -1,0 +1,29 @@
+package main.java.edu.virginia.sde.hw1;
+
+public class MainTools {
+
+    protected static double getDivisor(long totalPopulation, int numSeats) {
+        return (double) totalPopulation / numSeats;
+    }
+
+    protected static void jeffersonAlgorithm(StateData stateData, int totalSeats, double divisor) {
+        int apportionedSeats;
+        double low = 0;
+        double high = divisor;
+        double mid = divisor / 2;
+        while (true) {
+            stateData.setApportionmentMap(mid);
+            apportionedSeats = stateData.getApportionedSeats();
+            if (apportionedSeats < totalSeats) {
+                high = mid;
+            }
+            else if (apportionedSeats > totalSeats) {
+                low = mid;
+            }
+            else {
+                break;
+            }
+            mid = (low + high) / 2;
+        }
+    }
+}
