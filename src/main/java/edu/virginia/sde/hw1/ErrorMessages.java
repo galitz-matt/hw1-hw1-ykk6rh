@@ -32,6 +32,6 @@ public class ErrorMessages {
     }
 
     public static String filePathFormatError(String filePath) {
-        return String.format("ERROR: filePath, \"%s\" has bad format", filePath);
+        return String.format("ERROR: file path, \"%s\" has bad format", filePath);
     }
 }
