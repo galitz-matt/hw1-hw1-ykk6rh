@@ -7,7 +7,7 @@ public class MainTools {
         }
     }
 
-    public static String checkFileType(String filePath) {
+    public static String getFileType(String filePath) {
         try {
             var parsedFilePath = filePath.split("\\/");
             var file = parsedFilePath[parsedFilePath.length - 1];

@@ -4,6 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
         MainTools.checkForFile(args);
+
         var csvReader = new CSVReader(args[0]);
         var stateData = new StateData(csvReader.getStatePopulations());
         var totalSeats = MainTools.numberOfSeats(args);
