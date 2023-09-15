@@ -11,8 +11,7 @@ hw1-hw1-ykk6rh\src\main\java\edu\virginia\edu\main\hw1\Main.java
 ## Contributions
 
 ### Matthew Galitz
-* Everything
+Everything
 
 ## Issues
-
-List any known issues (bugs, incorrect behavior, etc.) at the time of submission.
+None that I know of.
