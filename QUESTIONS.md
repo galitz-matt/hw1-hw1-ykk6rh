@@ -41,5 +41,9 @@ I also started unit testing in Part 2 with my `GetFileExtensionTest` Testing cla
 These were things I did not consider in Part 1 it contained less code.
 However, as the size of the project grew, I realized I needed to address code
 that was not readable, understandable, nor efficient.
-
+In hindsight, I will plan out the role of my methods and classes 
+thoroughly so that I understand what needs to be implemented from the beginning.
+I have a tendency to rush into implementation which causes confusion and ultimately wastes time.
+I also think my technique for method extraction in my `CSVReader` class was suboptimal, 
+11 helper methods seems excessive; I will be more aware of this for the next assignment.
 
