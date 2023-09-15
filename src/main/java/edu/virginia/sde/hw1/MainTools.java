@@ -1,5 +1,7 @@
 package main.java.edu.virginia.sde.hw1;
 
+import java.util.Arrays;
+
 public class MainTools {
     public static void checkForFile(String[] args) {
         if (args.length < 1) {
@@ -14,7 +16,7 @@ public class MainTools {
 
     public static String getFileExtension(String filePath) {
         try {
-            var parsedFilePath = filePath.split("\\/");
+            var parsedFilePath = filePath.split("\\.");
             var file = parsedFilePath[parsedFilePath.length - 1];
             var fileExtension = file.split("\\/")[1];
             if (!isValidExtension(fileExtension)) {
