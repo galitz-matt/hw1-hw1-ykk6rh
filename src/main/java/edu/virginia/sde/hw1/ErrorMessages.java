@@ -32,6 +32,10 @@ public class ErrorMessages {
     }
 
     public static String filePathFormatError(String filePath) {
-        return String.format("ERROR: file path, \"%s\" has bad format", filePath);
+        return String.format("ERROR: File path, \"%s\" has bad format", filePath);
+    }
+
+    public static String invalidFileExtensionError() {
+        return "ERROR: File extension is not .csv or .xlsx";
     }
 }

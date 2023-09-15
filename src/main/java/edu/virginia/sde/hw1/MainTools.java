@@ -7,15 +7,28 @@ public class MainTools {
         }
     }
 
-    public static String getFileType(String filePath) {
+
+    private static boolean isValidExtension(String fileExtension) {
+        return fileExtension.equals(".csv") || fileExtension.equals(".xlsx");
+    }
+
+    public static String getFileExtension(String filePath) {
         try {
             var parsedFilePath = filePath.split("\\/");
             var file = parsedFilePath[parsedFilePath.length - 1];
-            return file.split("\\.")[1];
+            var fileExtension = file.split("\\/")[1];
+            if (!isValidExtension(fileExtension)) {
+                throw new RuntimeException(ErrorMessages.invalidFileExtensionError());
+            }
+            return fileExtension;
         }
         catch (ArrayIndexOutOfBoundsException e) {
             throw new RuntimeException(ErrorMessages.filePathFormatError(filePath));
         }
+    }
+
+    public static Reader getReader(String filePath, String fileType) {
+        return fileType.equals(".csv") ? new CSVReader(filePath) : new XLSXReader(filePath);
     }
     public static int numberOfSeats(String[] args) {
         return args.length < 2 ? 435 : Integer.parseInt(args[1]);
