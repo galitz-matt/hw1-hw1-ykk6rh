@@ -42,15 +42,9 @@ public class StateData {
         return orderedStates;
     }
 
-    public Map<String, Integer> getApportionmentMap() {
-        return apportionmentMap;
-    }
-
     public long getTotalPopulation() {
         return totalPopulation;
     }
-
-    /* Update this */
 
     private String whiteSpace(int length) {
         return " ".repeat(length);
@@ -59,6 +53,7 @@ public class StateData {
     private String getOutputHeader() {
         return "State" + whiteSpace(11) + "|Population|" + whiteSpace(1) + "Reps";
     }
+
     private String getOutputForState(String state) {
         var population = String.valueOf(statePopulations.get(state));
         var reps = String.valueOf(apportionmentMap.get(state));
@@ -69,6 +64,7 @@ public class StateData {
                 whiteSpace(5-reps.length()),
                 reps);
     }
+
     public void printData() {
         System.out.println(getOutputHeader());
         for (var state : getStatesInAlphabeticalOrder()) {
