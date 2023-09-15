@@ -1,6 +1,7 @@
 package main.java.edu.virginia.sde.hw1;
 
 public class MainTools {
+
     public static void checkForFile(String[] args) {
         if (args.length < 1) {
             throw new RuntimeException(ErrorMessages.noFileGivenError());
@@ -25,8 +26,8 @@ public class MainTools {
         }
     }
 
-    public static Reader getReader(String filePath, String fileType) {
-        return fileType.equals(".csv") ? new CSVReader(filePath) : new XLSXReader(filePath);
+    public static Reader getReader(String filePath, String fileExtension) {
+        return fileExtension.equals("csv") ? new CSVReader(filePath) : new XLSXReader(filePath);
     }
 
     public static int numberOfSeats(String[] args) {
