@@ -8,6 +8,13 @@ public class MainTools {
         }
     }
 
+    private static String removeQuotationMark(String fileExtension) {
+        if (fileExtension.endsWith("\"")) {
+            fileExtension = fileExtension.substring(0, fileExtension.length() - 1);
+        }
+        return fileExtension;
+    }
+
     private static boolean isValidExtension(String fileExtension) {
         return fileExtension.equals("csv") || fileExtension.equals("xlsx");
     }
@@ -15,7 +22,8 @@ public class MainTools {
     public static String getFileExtension(String filePath) {
         try {
             var parsedFilePath = filePath.split("\\.");
-            var fileExtension = parsedFilePath[parsedFilePath.length - 1];
+            var maybeFileExtension = parsedFilePath[parsedFilePath.length - 1];
+            var fileExtension = removeQuotationMark(maybeFileExtension);
             if (!isValidExtension(fileExtension)) {
                 throw new RuntimeException(ErrorMessages.invalidFileExtensionError());
             }
