@@ -25,4 +25,9 @@ public class GetFileExtensionTest {
     public void testBadPath() {
         assertThrows(RuntimeException.class, () -> getFileExtension("test"));
     }
+
+    @Test
+    public void testPathWithLeadingPeriod() {
+        assertEquals("csv", getFileExtension(".\\test.csv"));
+    }
 }

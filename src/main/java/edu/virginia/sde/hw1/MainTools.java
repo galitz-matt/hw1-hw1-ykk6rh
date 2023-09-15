@@ -1,7 +1,5 @@
 package main.java.edu.virginia.sde.hw1;
 
-import java.util.Arrays;
-
 public class MainTools {
     public static void checkForFile(String[] args) {
         if (args.length < 1) {
@@ -9,10 +7,10 @@ public class MainTools {
         }
     }
 
-
     private static boolean isValidExtension(String fileExtension) {
         return fileExtension.equals("csv") || fileExtension.equals("xlsx");
     }
+
     public static String getFileExtension(String filePath) {
         try {
             var parsedFilePath = filePath.split("\\.");
@@ -30,6 +28,7 @@ public class MainTools {
     public static Reader getReader(String filePath, String fileType) {
         return fileType.equals(".csv") ? new CSVReader(filePath) : new XLSXReader(filePath);
     }
+
     public static int numberOfSeats(String[] args) {
         return args.length < 2 ? 435 : Integer.parseInt(args[1]);
     }
