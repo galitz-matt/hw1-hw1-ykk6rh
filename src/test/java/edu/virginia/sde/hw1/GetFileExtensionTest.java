@@ -30,4 +30,9 @@ public class GetFileExtensionTest {
     public void testPathWithLeadingPeriod() {
         assertEquals("csv", getFileExtension(".\\test.csv"));
     }
+
+    @Test
+    public void testPathWithQuotationMarks() {
+        assertEquals("csv", getFileExtension(".\\\"My CSV File.csv\""));
+    }
 }
