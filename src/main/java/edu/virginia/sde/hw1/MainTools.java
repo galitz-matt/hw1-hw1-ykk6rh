@@ -9,7 +9,7 @@ public class MainTools {
     }
 
     private static String removeQuotationMark(String fileExtension) {
-        if (fileExtension.endsWith("\"")) {
+        if (fileExtension.endsWith("\"") || fileExtension.endsWith("'")) {
             fileExtension = fileExtension.substring(0, fileExtension.length() - 1);
         }
         return fileExtension;
