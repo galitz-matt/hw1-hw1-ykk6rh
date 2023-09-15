@@ -49,8 +49,8 @@ public class StateData {
         return totalPopulation;
     }
 
+    /* Update this */
     public void printData() {
-
         int numStateSeats;
         for (String stateName : getStatesInAlphabeticalOrder()) {
             numStateSeats = apportionmentMap.get(stateName);
