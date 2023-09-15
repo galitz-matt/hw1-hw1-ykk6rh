@@ -11,14 +11,12 @@ public class MainTools {
 
 
     private static boolean isValidExtension(String fileExtension) {
-        return fileExtension.equals(".csv") || fileExtension.equals(".xlsx");
+        return fileExtension.equals("csv") || fileExtension.equals("xlsx");
     }
-
     public static String getFileExtension(String filePath) {
         try {
             var parsedFilePath = filePath.split("\\.");
-            var file = parsedFilePath[parsedFilePath.length - 1];
-            var fileExtension = file.split("\\/")[1];
+            var fileExtension = parsedFilePath[parsedFilePath.length - 1];
             if (!isValidExtension(fileExtension)) {
                 throw new RuntimeException(ErrorMessages.invalidFileExtensionError());
             }
