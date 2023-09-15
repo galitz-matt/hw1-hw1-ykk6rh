@@ -38,4 +38,5 @@ public class ErrorMessages {
     public static String invalidFileExtensionError() {
         return "ERROR: File extension is not .csv or .xlsx";
     }
+
 }
