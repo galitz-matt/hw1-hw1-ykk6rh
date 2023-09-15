@@ -9,6 +9,7 @@ public class XLSXReader implements Reader {
 
     private final List<String> fileLines = new ArrayList<>();
     private final Map<String, Integer> statePopulation = new HashMap<>();
+    private static int STATE, POPULATION;
 
     public XLSXReader(String filePath) {
         setFileLines(filePath);
